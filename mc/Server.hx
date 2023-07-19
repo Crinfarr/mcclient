@@ -1,5 +1,6 @@
 package mc;
 
+import haxe.Json;
 import haxe.Exception;
 import haxe.io.BytesBuffer;
 import sys.net.Host;
@@ -57,6 +58,6 @@ class Server extends Socket {
 		tmp.writeVarInt(packetID);
 		statusres = statusres.sub(tmp.length, statusres.length - tmp.length);
 		Sys.println('ignoring next ${tmp.length} byte(s): used by ID');
-		trace(statusres.readStringVarInt());
+		Sys.println(Json.stringify(Json.parse(statusres.readStringVarInt()), null, '\t'));
 	}
 }
