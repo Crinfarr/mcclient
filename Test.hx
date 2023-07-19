@@ -1,17 +1,15 @@
-import mc.types.PacketInt;
-import haxe.Exception;
-import mc.types.PacketShort;
+import sys.net.Host;
 import haxe.io.Bytes;
+import haxe.io.BytesBuffer;
+import mc.Server;
+
+using mc.BytesBufferTools;
+using mc.ByteTools;
 
 class Test {
 	static function main() {
-		for (i in 0...0x7fffffff) {
-			final num:PacketInt = i;
-			final inum:PacketInt = -i;
-			Sys.stdout().writeString('${num.toPacketBytes().toHex()}\t${num.toInt()}\r');
-			if (num.toInt() + inum.toInt() != 0) {
-				throw new Exception('Math breaks when i=${i}');
-			}
-		}
+		var server = new Server(new Host('node1.crinfarr.zip'), 13862);
+		server.doHandshake();
+		server.doRequest();
 	}
 }
