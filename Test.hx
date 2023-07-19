@@ -8,7 +8,7 @@ using mc.ByteTools;
 
 class Test {
 	static function main() {
-		var server = new Server(new Host('node1.crinfarr.zip'), 13862);
+		var server = new Server(new Host('SERVER'), 25565);
 		server.doHandshake();
 		server.doRequest();
 	}
