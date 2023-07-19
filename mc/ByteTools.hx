@@ -39,11 +39,9 @@ class ByteTools {
     }
     public static function readStringVarInt(b:Bytes) {
         final len = b.readVarInt();
-        trace(len);
         var _tmp = new BytesBuffer();
         _tmp.writeVarInt(len);
         b = b.sub(_tmp.length, len);
-        trace(b);
         return b.toString();
     }
 }
