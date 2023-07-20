@@ -1,0 +1,10 @@
+{
+    "name": "MinecraftClient",
+    "url": "https://github.com/crinfarr/mcclient",
+    "license":"GPL",
+    "tags": ["Minecraft", "Socket", "TCP", "Game"],
+    "description": "See README.md",
+    "version": "0.0.1",
+    "releasenote": "See README.md",
+    "contributors": ["crinfarr"]
+}
