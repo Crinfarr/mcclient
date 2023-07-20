@@ -1,2 +1,4 @@
 bin
 build
+# List output from my masscan config
+p25565.list
