@@ -1,5 +1,6 @@
 package mc;
 
+import mc.types.ServerRecord;
 import haxe.Json;
 import haxe.Exception;
 import haxe.io.BytesBuffer;
@@ -37,7 +38,7 @@ class Server extends Socket {
 		this.output.flush();
 	}
 
-	public function doRequest() {
+	public function doRequest():ServerRecord {
 		var request = new BytesBuffer();
 		request.addByte(0x01);
 		request.addByte(0x00);
