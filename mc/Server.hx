@@ -8,6 +8,7 @@ import sys.net.Socket;
 
 using mc.ByteTools;
 using mc.BytesBufferTools;
+using mc.InputTools;
 
 class Server extends Socket {
 	private var data:BytesBuffer;
@@ -43,21 +44,11 @@ class Server extends Socket {
 		this.output.write(request.getBytes());
 		this.output.flush();
 		this.waitForRead();
-		var statusres = this.input.readAll();
-		final packetLength = statusres.readVarInt();
-		Sys.println('Got packet with length ${packetLength}');
-		if (statusres.length < packetLength)
-			throw new Exception('Invalid packet');
-
-		var tmp = new BytesBuffer();
-		tmp.writeVarInt(packetLength);
-		Sys.println('ignoring first ${tmp.length} bytes: used by headers');
-		statusres = statusres.sub(tmp.length, packetLength);
-		final packetID = statusres.readVarInt();
-		tmp = new BytesBuffer();
-		tmp.writeVarInt(packetID);
-		statusres = statusres.sub(tmp.length, statusres.length - tmp.length);
-		Sys.println('ignoring next ${tmp.length} byte(s): used by ID');
-		Sys.println(Json.stringify(Json.parse(statusres.readStringVarInt()), null, '\t'));
+		final _packlen = this.input.readVarInt();
+		final packid = this.input.readVarInt();
+		if (packid != 0x00)
+			throw new Exception('Unexpected response packet ID ${StringTools.hex(packid)}');
+		final res = Json.parse(this.input.readStringVarInt());
+		return res;
 	}
 }
